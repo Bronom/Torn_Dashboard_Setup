@@ -5,34 +5,35 @@ const PROJECTS = {
     name: "Torn Dashboard 4 Inch TFT",
     owner: "Bronom",
     repo: "Torn_Dashboard_ESP32_TFT_4Inch",
-    chip: "ESP32-S3"
+    chip: "ESP32-S3",
+    asset: "Torn_Dashboard_ESP32_TFT_4Inch.ino.merged.bin"
   },
   "2_8inch": {
     name: "Torn Dashboard 2.8 Inch TFT",
     owner: "Bronom",
     repo: "Torn_Dashboard_ESP32_TFT",
-    chip: "ESP32"
+    chip: "ESP32",
+    asset: "Torn_Dashboard_ESP32_TFT.ino.merged.bin"
   },
   "eink213": {
     name: "Torn Dashboard E-Ink 2.13",
     owner: "Bronom",
     repo: "Torn_Dashboard_Lilygo_T5_2_13",
-    chip: "ESP32"
+    chip: "ESP32",
+    asset: "Torn_Dashboard_Lilygo_T5_2_13.ino.merged.bin"
   }
 };
-
-const ASSET_SUFFIX = ".ino.merged.bin";
 
 function getProjectConfig(projectKey) {
   return PROJECTS[projectKey] || PROJECTS["4inch"];
 }
 
 function getAssetName(project) {
-  return `${project.repo}${ASSET_SUFFIX}`;
+  return project.asset;
 }
 
 function getAssetPath(project) {
-  return `/${getAssetName(project)}`;
+  return `/${project.asset}`;
 }
 
 function latestAssetUrl(owner, repo, assetName) {
@@ -83,7 +84,6 @@ export default {
       });
     }
 
-    // Match any project's merged firmware path
     for (const key of Object.keys(PROJECTS)) {
       const project = PROJECTS[key];
       const assetPath = getAssetPath(project);
@@ -92,7 +92,7 @@ export default {
         const githubUrl = latestAssetUrl(
           project.owner,
           project.repo,
-          getAssetName(project)
+          project.asset
         );
 
         const resp = await fetch(githubUrl, {
@@ -103,9 +103,10 @@ export default {
         });
 
         if (!resp.ok) {
-          return new Response(`GitHub fetch failed: ${resp.status}`, {
-            status: 502
-          });
+          return new Response(
+            `GitHub fetch failed: ${resp.status}\nURL: ${githubUrl}`,
+            { status: 502 }
+          );
         }
 
         return new Response(resp.body, {
