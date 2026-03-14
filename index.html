@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Torn Dashboard ESP32 Setup</title>
 
-  <!-- ESP Web Tools -->
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 
   <style>
@@ -336,21 +335,87 @@
       color: var(--text);
     }
 
+    .project-field {
+      position: relative;
+    }
+
     .project-select {
       width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
       border: 1px solid var(--border);
-      background: #091018;
+      background: linear-gradient(180deg, #101720, #0a1016);
       color: var(--text);
       border-radius: 13px;
-      padding: 14px 15px;
+      padding: 14px 44px 14px 15px;
       font-size: 15px;
+      font-weight: 700;
       outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .project-select,
+    .project-select option {
+      background: #0a1016;
+      color: var(--text);
     }
 
     .project-select:focus {
       border-color: var(--red);
       box-shadow: 0 0 0 4px rgba(216, 68, 62, 0.15);
-      background: #0b131d;
+      background: linear-gradient(180deg, #121b26, #0c131b);
+    }
+
+    .project-field::after {
+      content: "▾";
+      position: absolute;
+      right: 14px;
+      top: 41px;
+      color: var(--muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .firmware-box {
+      display: grid;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+      margin-top: 6px;
+    }
+
+    .firmware-error {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 95, 86, 0.35);
+      background: rgba(255, 95, 86, 0.08);
+      color: #ffb4b0;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .manifest-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .manifest-pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #0b1016;
+      border: 1px solid var(--border);
+      font-weight: 800;
+    }
+
+    .firmware-note {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
     }
 
     .actions {
@@ -408,6 +473,31 @@
       box-shadow: 0 12px 28px rgba(216, 68, 62, 0.28);
     }
 
+    .btn-flash {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(180deg, #ff5e56, #d8443e);
+      color: white;
+      box-shadow: 0 6px 18px rgba(216,68,62,0.35);
+      transition: all .15s ease;
+    }
+
+    .btn-flash:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .btn-flash:hover:not(:disabled) {
+      background: linear-gradient(180deg, #ff726b, #e34d47);
+    }
+
     .hint-list {
       margin: 0;
       padding-left: 18px;
@@ -416,61 +506,6 @@
       line-height: 1.6;
       position: relative;
       z-index: 1;
-    }
-
-    .firmware-box {
-      display: grid;
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .firmware-note {
-      font-size: 13px;
-      line-height: 1.55;
-      color: var(--muted);
-    }
-
-    .manifest-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .manifest-pill {
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: #0b1016;
-      border: 1px solid var(--border);
-      font-weight: 800;
-    }
-
-    .esp-web-install-button {
-      --esp-tools-button-color: #1d2734;
-      --esp-tools-button-background: linear-gradient(180deg, var(--red), #bc3934);
-      --esp-tools-button-border-radius: 13px;
-      --esp-tools-button-padding: 13px 16px;
-    }
-
-    .btn-flash{
-      width:100%;
-      border:none;
-      border-radius:12px;
-      padding:14px;
-      font-size:14px;
-      font-weight:800;
-      cursor:pointer;
-      background:linear-gradient(
-        180deg,
-        #ff5e56,
-        #d8443e
-      );
-      color:white;
-      box-shadow:0 6px 18px rgba(216,68,62,0.35);
-      transition:all .15s ease;
     }
 
     .hud-grid {
@@ -631,8 +666,6 @@
     <div class="topbar">
       <div class="brand">
         <div class="logo-wrap">
-          <!-- Replace with your logo if you have one -->
-          <!-- <img src="/torn-logo.png" alt="Torn logo"> -->
           <div class="logo-fallback">T</div>
         </div>
 
@@ -654,15 +687,6 @@
           <span id="readyText">Waiting for device</span>
         </div>
       </div>
-    </div>
-
-    <div class="field">
-      <label for="project">Project Version</label>
-      <select id="project" class="project-select">
-        <option value="4inch">4 Inch TFT</option>
-        <option value="2_8inch">2.8 Inch TFT</option>
-        <option value="eink213">E-Ink 2.13</option>
-      </select>
     </div>
 
     <div class="main">
@@ -706,13 +730,27 @@
           </p>
 
           <div class="firmware-box">
-            <div class="manifest-row">
-              <span class="manifest-pill">Source: GitHub latest release</span>
-              <span class="manifest-pill" id="firmwareProjectLabel">Project: 4 Inch TFT</span>
+            <div class="field project-field">
+              <label for="project">Project Version</label>
+              <select id="project" class="project-select">
+                <option value="" selected disabled>Select a project version...</option>
+                <option value="4inch">4 Inch TFT</option>
+                <option value="2_8inch">2.8 Inch TFT</option>
+                <option value="eink213">E-Ink 2.13</option>
+              </select>
             </div>
 
-            <esp-web-install-button id="installBtn" manifest="/manifest.json?project=4inch">
-              <button slot="activate" class="btn-flash">
+            <div id="firmwareError" class="firmware-error" hidden>
+              Please select a project version before installing firmware.
+            </div>
+
+            <div class="manifest-row">
+              <span class="manifest-pill">Source: GitHub release</span>
+              <span class="manifest-pill" id="firmwareProjectLabel">Project: None</span>
+            </div>
+
+            <esp-web-install-button id="installBtn" manifest="/manifest.json?project=">
+              <button id="flashBtn" slot="activate" class="btn-flash" disabled>
                 Install / Update Firmware
               </button>
               <span slot="unsupported">
@@ -720,6 +758,10 @@
                 Please use Chrome or Edge.
               </span>
             </esp-web-install-button>
+
+            <div class="firmware-note">
+              Flash the firmware for the selected hardware, then reconnect and send the WiFi and API configuration.
+            </div>
           </div>
         </div>
 
@@ -953,7 +995,9 @@
 
     const projectSelect = document.getElementById("project");
     const installBtn = document.getElementById("installBtn");
+    const flashBtn = document.getElementById("flashBtn");
     const firmwareProjectLabel = document.getElementById("firmwareProjectLabel");
+    const firmwareError = document.getElementById("firmwareError");
 
     const projectLabels = {
       "4inch": "Project: 4 Inch TFT",
@@ -961,11 +1005,57 @@
       "eink213": "Project: E-Ink 2.13"
     };
 
-    projectSelect.addEventListener("change", () => {
-      const project = projectSelect.value;
+    function showFirmwareError(message) {
+      firmwareError.textContent = message;
+      firmwareError.hidden = false;
+    }
+
+    function hideFirmwareError() {
+      firmwareError.hidden = true;
+    }
+
+    function setFirmwareProjectState(project) {
+      if (!project) {
+        installBtn.setAttribute("manifest", "/manifest.json?project=");
+        firmwareProjectLabel.textContent = "Project: None";
+        flashBtn.disabled = true;
+        return;
+      }
+
       installBtn.setAttribute("manifest", `/manifest.json?project=${encodeURIComponent(project)}`);
       firmwareProjectLabel.textContent = projectLabels[project] || "Project: Unknown";
+      flashBtn.disabled = false;
+    }
+
+    setFirmwareProjectState("");
+
+    projectSelect.addEventListener("change", () => {
+      const project = projectSelect.value;
+
+      if (!project) {
+        setFirmwareProjectState("");
+        showFirmwareError("Please select a project version before installing firmware.");
+        return;
+      }
+
+      setFirmwareProjectState(project);
+      hideFirmwareError();
     });
+
+    flashBtn.addEventListener("click", (e) => {
+      const project = projectSelect.value;
+
+      if (!project) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        showFirmwareError("Please select a project version before installing firmware.");
+        setAction("Select project", "red");
+        return false;
+      }
+
+      hideFirmwareError();
+    }, true);
 
     document.getElementById("connectBtn").addEventListener("click", connect);
     document.getElementById("sendBtn").addEventListener("click", send);
