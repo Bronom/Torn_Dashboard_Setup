@@ -336,6 +336,23 @@
       color: var(--text);
     }
 
+    .project-select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #091018;
+      color: var(--text);
+      border-radius: 13px;
+      padding: 14px 15px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .project-select:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(216, 68, 62, 0.15);
+      background: #0b131d;
+    }
+
     .actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -639,6 +656,15 @@
       </div>
     </div>
 
+    <div class="field">
+      <label for="project">Project Version</label>
+      <select id="project" class="project-select">
+        <option value="4inch">4 Inch TFT</option>
+        <option value="2_8inch">2.8 Inch TFT</option>
+        <option value="eink213">E-Ink 2.13</option>
+      </select>
+    </div>
+
     <div class="main">
       <aside class="sidebar">
         <div class="card">
@@ -676,25 +702,24 @@
         <div class="card">
           <h2 class="card-title">Firmware</h2>
           <p class="card-subtitle">
-            Install or update the dashboard firmware before sending the config.
+            Select the hardware version, then install or update the latest firmware from GitHub.
           </p>
 
           <div class="firmware-box">
-            <esp-web-install-button manifest="/manifest.json">
+            <div class="manifest-row">
+              <span class="manifest-pill">Source: GitHub latest release</span>
+              <span class="manifest-pill" id="firmwareProjectLabel">Project: 4 Inch TFT</span>
+            </div>
+
+            <esp-web-install-button id="installBtn" manifest="/manifest.json?project=4inch">
               <button slot="activate" class="btn-flash">
                 Install / Update Firmware
               </button>
+              <span slot="unsupported">
+                Your browser does not support firmware flashing.<br>
+                Please use Chrome or Edge.
+              </span>
             </esp-web-install-button>
-
-            <div class="manifest-row">
-              <span class="manifest-pill">Manifest: /manifest.json</span>
-              <span class="manifest-pill">Firmware: /firmware.bin</span>
-            </div>
-
-            <div class="firmware-note">
-              Use this when flashing a new board or updating to a newer release.
-              After flashing, reconnect and send the Wi-Fi and API configuration.
-            </div>
           </div>
         </div>
 
@@ -925,6 +950,22 @@
         setAction("Send failed", "red");
       }
     }
+
+    const projectSelect = document.getElementById("project");
+    const installBtn = document.getElementById("installBtn");
+    const firmwareProjectLabel = document.getElementById("firmwareProjectLabel");
+
+    const projectLabels = {
+      "4inch": "Project: 4 Inch TFT",
+      "2_8inch": "Project: 2.8 Inch TFT",
+      "eink213": "Project: E-Ink 2.13"
+    };
+
+    projectSelect.addEventListener("change", () => {
+      const project = projectSelect.value;
+      installBtn.setAttribute("manifest", `/manifest.json?project=${encodeURIComponent(project)}`);
+      firmwareProjectLabel.textContent = projectLabels[project] || "Project: Unknown";
+    });
 
     document.getElementById("connectBtn").addEventListener("click", connect);
     document.getElementById("sendBtn").addEventListener("click", send);
