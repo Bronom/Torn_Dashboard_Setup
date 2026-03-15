@@ -13,7 +13,7 @@
   --green: #37d27d;
   --yellow: #f3c14f;
   --danger: #ff5f56;
-  --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  --shadow: 0 10px 70px rgba(0, 0, 0, 0.5);
   --radius: 22px;
 }
 
@@ -50,7 +50,6 @@ body::before {
       transparent 4px
     );
   opacity: 0.08;
-  mix-blend-mode: screen;
 }
 
 body::after {
@@ -71,7 +70,6 @@ body::after {
   border-radius: 28px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  /*backdrop-filter: blur(8px);*/
 }
 
 .topbar {
