@@ -71,7 +71,7 @@ body::after {
   border-radius: 28px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  backdrop-filter: blur(8px);
+  /*backdrop-filter: blur(8px);*/
 }
 
 .topbar {
