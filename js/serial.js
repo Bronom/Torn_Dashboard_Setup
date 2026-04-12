@@ -2,9 +2,39 @@ export function createSerialController(ui) {
   let port = null;
   let reader = null;
   let espReady = false;
+  let readPipeClosed = null;
+
+  async function cleanupPort() {
+    try {
+      if (reader) {
+        try { await reader.cancel(); } catch {}
+        try { reader.releaseLock(); } catch {}
+        reader = null;
+      }
+
+      if (readPipeClosed) {
+        try { await readPipeClosed; } catch {}
+        readPipeClosed = null;
+      }
+
+      if (port) {
+        try {
+          if (port.readable && port.readable.locked) {
+            // best-effort; reader cancel above usually unlocks it
+          }
+        } catch {}
+
+        try { await port.close(); } catch {}
+        port = null;
+      }
+    } catch {}
+  }
 
   async function connect() {
     try {
+      // Important: if a previous attempt failed, fully release it first
+      await cleanupPort();
+
       if (!("serial" in navigator)) {
         ui.log("Web Serial is not supported in this browser.\nUse Chrome or Edge.", "error");
         ui.setAction("Unsupported", "red");
@@ -21,7 +51,7 @@ export function createSerialController(ui) {
       ui.log(`Selected port VID=${info.usbVendorId || "?"} PID=${info.usbProductId || "?"}`);
       await port.open({ baudRate: 115200 });
 
-      // Give freshly flashed / freshly reset boards time to settle
+      // Give freshly flashed/rebooting ESP32 time to settle
       await new Promise((resolve) => setTimeout(resolve, 1200));
 
       ui.setConnected(true);
@@ -32,7 +62,7 @@ export function createSerialController(ui) {
       ui.setReady("ready");
 
       const decoder = new TextDecoderStream();
-      port.readable.pipeTo(decoder.writable).catch(() => {});
+      readPipeClosed = port.readable.pipeTo(decoder.writable).catch(() => {});
       reader = decoder.readable.getReader();
 
       let buffer = "";
@@ -81,13 +111,24 @@ export function createSerialController(ui) {
       ui.setReady("idle");
 
       const msg = (err?.message || "").toLowerCase();
-      if (msg.includes("frame") || msg.includes("framing") || msg.includes("parity") || msg.includes("buffer")) {
+
+      if (
+        msg.includes("frame") ||
+        msg.includes("framing") ||
+        msg.includes("buffer") ||
+        msg.includes("parity")
+      ) {
         ui.setAction("Device rebooting", "blue");
-        ui.log("Serial framing error right after flash. The board is likely still rebooting. Try Connect again in 1 second.", "error");
+        ui.log(
+          "Serial framing error right after flash. The board is likely still rebooting. Try Connect again in 1 second.",
+          "error"
+        );
       } else {
         ui.setAction("Connect failed", "red");
         ui.log("Connect error: " + err.message, "error");
       }
+
+      await cleanupPort();
     }
   }
 
@@ -102,7 +143,6 @@ export function createSerialController(ui) {
       }
 
       const config = ui.getConfigValues();
-
       let payloadObject;
 
       if (config.mode === "advanced") {
@@ -136,8 +176,8 @@ export function createSerialController(ui) {
       }
 
       const payload = JSON.stringify(payloadObject) + "\n";
-
       ui.log("Sending JSON to ESP32...");
+
       const writer = port.writable.getWriter();
       await writer.write(new TextEncoder().encode(payload));
       writer.releaseLock();
@@ -175,8 +215,5 @@ export function createSerialController(ui) {
     }
   }
 
-  return {
-    connect,
-    send
-  };
+  return { connect, send };
 }
