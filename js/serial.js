@@ -110,7 +110,8 @@ export function createSerialController(ui) {
 
         payloadObject = {
           wifi: config.wifi,
-          api: config.api
+          api: config.api,
+          hideBattery: !!config.hideBattery
         };
       } else {
         if (!config.ssid || !config.api) {
@@ -148,7 +149,8 @@ export function createSerialController(ui) {
                 ssid: w.ssid,
                 pass: w.pass ? "***" : ""
               })),
-              api: "***"
+              api: "***",
+              hideBattery: payloadObject.hideBattery
             }),
           "success"
         );

@@ -166,7 +166,8 @@ export function createUI() {
         ssid: entry.ssid.trim(),
         pass: entry.pass
       })),
-      api: parsed.api.trim()
+      api: parsed.api.trim(),
+      hideBattery: !!parsed.hideBattery
     };
   }
 
