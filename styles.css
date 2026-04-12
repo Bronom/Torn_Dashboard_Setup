@@ -172,6 +172,18 @@ body::after {
   justify-content: center;
 }
 
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.github-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
 .subtitle {
   margin: 6px 0 0;
   color: var(--muted);
@@ -599,10 +611,6 @@ button:disabled {
   line-height: 1.45;
 }
 
-.advanced-config {
-  margin-top: 16px;
-}
-
 .checkbox-row {
   display: flex;
   align-items: center;
@@ -614,6 +622,67 @@ button:disabled {
 .checkbox-row input[type="checkbox"] {
   width: 16px;
   height: 16px;
+}
+
+.advanced-config {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.pretty-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pretty-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pretty-checkbox-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #06101c;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
+
+.pretty-checkbox-box::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: transparent;
+  transform: scale(0.6);
+  transition: 0.15s ease;
+}
+
+.pretty-checkbox input[type="checkbox"]:checked + .pretty-checkbox-box {
+  border-color: var(--border-strong);
+  background: #102033;
+}
+
+.pretty-checkbox input[type="checkbox"]:checked + .pretty-checkbox-box::after {
+  background: #7ab8ff;
+  transform: scale(1);
+}
+
+.pretty-checkbox input[type="checkbox"]:focus-visible + .pretty-checkbox-box {
+  box-shadow: 0 0 0 2px rgba(122, 184, 255, 0.25);
+}
+
+.pretty-checkbox-label {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .advanced-json-wrap {

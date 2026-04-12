@@ -27,6 +27,24 @@ export function createUI() {
     advancedJson: document.getElementById("advancedJson")
   };
 
+  elements.advancedJson?.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+
+      const start = elements.advancedJson.selectionStart;
+      const end = elements.advancedJson.selectionEnd;
+      const value = elements.advancedJson.value;
+
+      const tab = "  "; // 2 spaces
+
+      elements.advancedJson.value =
+        value.substring(0, start) + tab + value.substring(end);
+
+      elements.advancedJson.selectionStart =
+        elements.advancedJson.selectionEnd = start + tab.length;
+    }
+  });
+
   let autoScroll = true;
 
   elements.logDiv.addEventListener("scroll", () => {
