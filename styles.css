@@ -328,7 +328,6 @@ input:focus, select:focus {
   position: absolute;
   right: 8px;
   top: 50%;
-  transform: translateY(-50%);
   margin: 0;
   height: 30px;
   min-width: 54px;
@@ -349,7 +348,6 @@ input:focus, select:focus {
 
 .password-toggle:hover,
 .password-toggle:active {
-  transform: translateY(-50%);
   background: #1a2432;
   color: var(--text);
 }
