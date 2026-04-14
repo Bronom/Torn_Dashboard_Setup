@@ -61,6 +61,7 @@ There are different versions of the Torn Dashboard, each designed for different 
 | ESP32 Breakout Board             | Recommended for easier wiring (Optionnal) | [Aliexpress](https://www.aliexpress.com/item/1005006336964908.html "Breakout Board") |
 | electrical wires                 | For connections                           | [Aliexpress](https://www.aliexpress.com/item/1005007319706057.html "ESP32-S3 R16N8 (Wroom 1)") |
 | Jumper wires (Dupont wire)       | For easier testing (Optionnal)            | [Aliexpress](https://www.aliexpress.com/item/1005007319706057.html "ESP32-S3 R16N8 (Wroom 1)") |
+| Black Rubber Strip 2mm x 10mm    | To stop the case sliding (Optionnal)     | [Aliexpress](https://www.aliexpress.com/item/1005003718625323.html "Black Rubber Strip 2mm x 10mm") |
 ⚠️ **Warning:**
  **I got the display few years ago. Because its kinda old, it may be a other chip inside (Other than ILI9341). You may encounter some issue. If its the case contact me or make a Issues in Github and let me know. I will try to make a version for your display if possible.**
 
@@ -125,6 +126,7 @@ For a larger screen, the **4-inch TFT version** offers more space for displaying
 | ESP32 Breakout Board             | Recommended for easier wiring (Optionnal) | [Aliexpress](https://www.aliexpress.com/item/1005008750977454.html "ESP32 Breakout Board") |
 | electrical wires                 | For connections                           | [Aliexpress](https://www.aliexpress.com/item/1005005450270866.html "Boxed 1, 24AWG 20m x5 rolls, 1 box") |
 | Jumper wires (Dupont wire)       | For easier testing (Optionnal)            | [Aliexpress](https://www.aliexpress.com/item/1005003219096948.html "3 x 40pin Ribbon Kit 10cm") |
+| Black Rubber Strip 2mm x 10mm    | To stop the case sliding (Optionnal)     | [Aliexpress](https://www.aliexpress.com/item/1005003718625323.html "Black Rubber Strip 2mm x 10mm") |
 
 3D Printed Case : In Progess
 
