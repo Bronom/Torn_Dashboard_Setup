@@ -1,32 +1,36 @@
 # Torn Dashboard ESP32 TFT
 
-A **hardware Torn dashboard** powered by an **ESP32** and a **SPI TFT Display (Or E-Ink)**.
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/8ffd62d3-bffb-483d-878e-4e102d5eaf75"
+       alt="Torn Dashboard"
+       width="500"
+       align="right"
+       style="margin-left: 15px;" />
 
-The device connects to the **Torn API** and displays your in-game stats on a dedicated screen.
+  A <b>hardware Torn dashboard</b> powered by an <b>ESP32</b> and a <b>SPI TFT Display (Or E-Ink)</b>.<br><br>
 
-⚠️ **Important:** The ESP32 only supports **2.4GHz WiFi networks**.
+  The device connects to the <b>Torn API</b> and displays your in-game stats on a dedicated screen.<br><br>
 
-https://bronom.github.io/Torn_Dashboard_Setup/
+  ⚠️ <b>Important:</b> The ESP32 only supports <b>2.4GHz WiFi networks</b>.<br><br>
 
----
+  <h3>🚀 Features</h3>
+  • Displays Torn player information on a TFT screen<br>
+  • Uses the <b>Torn API</b><br>
+  • Touchscreen support<br>
+  • Runs on a standalone <b>ESP32 device</b><br>
+  • Advanced setup with JSON for extra options<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↳ WiFi list, hide battery icon (E-Ink), etc.<br><br>
 
-# Features
+  <h3>📝 Notes</h3>
+  • ESP32 supports <b>2.4GHz WiFi only</b><br>
+  • The wiring and hardware must be the same<br>
+  • UI layout does not scale with different display sizes<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↳ Adjustments may be required for other screens
+</p>
 
-* Displays Torn player information on a TFT screen
-* Uses the **Torn API**
-* Touchscreen support
-* Runs on a standalone **ESP32 device**
-* Advanced setup with JSON which give a little more option and maybe future option.
-  * Like Wifi list or hiding the battery icon on the E-Ink Version.
+<br clear="right"/>
+<br>
 
----
-
-# Notes
-
-* ESP32 supports **2.4GHz WiFi only**
-* The wiring and hardware must be the same.
-* The UI Layout doesn't scale with different display sizes. (If using a different display size, some adjustments may be necessary.)
-  
 ---
 
 # Dashboard Versions
