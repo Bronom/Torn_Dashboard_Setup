@@ -6,6 +6,8 @@ The device connects to the **Torn API** and displays your in-game stats on a ded
 
 ⚠️ **Important:** The ESP32 only supports **2.4GHz WiFi networks**.
 
+https://bronom.github.io/Torn_Dashboard_Setup/
+
 ---
 
 # Features
@@ -14,6 +16,8 @@ The device connects to the **Torn API** and displays your in-game stats on a ded
 * Uses the **Torn API**
 * Touchscreen support
 * Runs on a standalone **ESP32 device**
+* Advanced setup with JSON which give a little more option and maybe future option.
+  * Like Wifi list or hiding the battery icon on the E-Ink Version.
 
 ---
 
@@ -41,19 +45,24 @@ There are different versions of the Torn Dashboard, each designed for different 
 - Refresh Every 60 Sec.
 - Press on the screen to turn off the display.
 - Hold Boot button 2 sec to reset Wifi and API Key config. (Need to be reconfigured by the website.) (Flash/Install/Update Not required)
+- Single press on Boot button while startup to launch touch screen safezone calibration.
+- Double press on Boot button while start to launch touch screen safezone calibration reset.
 
 
 ## Hardware
 
 ### Required Parts
+⚠️ **Important:** Please verify you got the good part. The link only redirect to the page listing not the right version or size.**.
 
-| Part                             | Description                   |
-| -------------------------------- | ----------------------------- |
-| ESP32-32D / ESP32-WROOM-DA       | Main microcontroller          |
-| 2.8" SPI TFT LCD Touch (ILI9341) | Display                       |
-| ESP32 Breakout Board             | Recommended for easier wiring |
-| electrical wires                 | For connections               |
-| Jumper wires (Dupont wire)       | For easier testing            |
+| Part                             | Description                               | Link |
+| -------------------------------- | ----------------------------------------- | ---- |
+| ESP32-32D / ESP32-WROOM-DA       | Main microcontroller                      | [Aliexpress](https://www.aliexpress.com/item/1005006336964908.html "ESP32-S3 R16N8 (Wroom 1)") |
+| 2.8" SPI TFT LCD Touch (ILI9341) | Display                                   | [Aliexpress](https://www.aliexpress.com/item/33015586094.html "2.8 inch with touch") |
+| ESP32 Breakout Board             | Recommended for easier wiring (Optionnal) | [Aliexpress](https://www.aliexpress.com/item/1005006336964908.html "Breakout Board") |
+| electrical wires                 | For connections                           | [Aliexpress](https://www.aliexpress.com/item/1005007319706057.html "ESP32-S3 R16N8 (Wroom 1)") |
+| Jumper wires (Dupont wire)       | For easier testing (Optionnal)            | [Aliexpress](https://www.aliexpress.com/item/1005007319706057.html "ESP32-S3 R16N8 (Wroom 1)") |
+⚠️ **Warning:**
+ **I got the display few years ago. Because its kinda old, it may be a other chip inside (Other than ILI9341). You may encounter some issue. If its the case contact me or make a Issues in Github and let me know. I will try to make a version for your display if possible.**
 
 3D Printed Case : In Progess
 
@@ -101,19 +110,21 @@ For a larger screen, the **4-inch TFT version** offers more space for displaying
 - Same Layout but bigger.
 - Display -> Player Name, Id, Level, Torn Time, Refresh Timer, Notification, Money, Organized Crime (OC) Timer, Ranked War (RW), Status, Energy, Nerve, Happy, Life, Chain, Cooldown.
 - Hold Boot button 2sec to reset Wifi and API Key config. (Need to be reconfigured by the website.) (Flash/Install/Update Not required)
-
+- Single press on Boot button while startup to launch touch screen safezone calibration.
+- Double press on Boot button while start to launch touch screen safezone calibration reset.
 
 ## Hardware
 
 ### Required Parts
+⚠️ **Important:** Please verify you got the good part. The link only redirect to the page listing not the right version or size.**.
 
-| Part                             | Description                   |
-| -------------------------------- | ----------------------------- |
-| ESP32-S3 R16N8 (Wroom 1)         | Main microcontroller          |
-| 4" SPI TFT LCD Touch (ST7796S)   | Display                       |
-| ESP32 Breakout Board             | Recommended for easier wiring |
-| electrical wires                 | For connections               |
-| Jumper wires (Dupont wire)       | For easier testing            |
+| Part                             | Description                               | Link |
+| -------------------------------- | ----------------------------------------- | ---- |
+| ESP32-S3 R16N8 (Wroom 1)         | Main microcontroller                      | [Aliexpress](https://www.aliexpress.com/item/1005007319706057.html "ESP32-S3 R16N8 (Wroom 1)") |
+| 4" SPI TFT LCD Touch (ST7796S)   | Display                                   | [Aliexpress](https://www.aliexpress.com/item/32847628219.html "4 Inch SPI TFT LCD Touch (ST7796S)") |
+| ESP32 Breakout Board             | Recommended for easier wiring (Optionnal) | [Aliexpress](https://www.aliexpress.com/item/1005008750977454.html "ESP32 Breakout Board") |
+| electrical wires                 | For connections                           | [Aliexpress](https://www.aliexpress.com/item/1005005450270866.html "Boxed 1, 24AWG 20m x5 rolls, 1 box") |
+| Jumper wires (Dupont wire)       | For easier testing (Optionnal)            | [Aliexpress](https://www.aliexpress.com/item/1005003219096948.html "3 x 40pin Ribbon Kit 10cm") |
 
 3D Printed Case : In Progess
 
@@ -164,10 +175,14 @@ The **E-Ink version** is designed for a low-power, always-on display where you d
 ## Hardware
 
 ### Required Parts
+⚠️ **Important:** Please verify you got the good part. The link only redirect to the page listing not the right version or size.**.
 
-| Part                                                              | Description                   |
-| ----------------------------------------------------------------- | ----------------------------- |
-| Lilygo T5 2.13 Inch E-ink (With on board chip. Micro USB Version) | Main microcontroller          |
+| Part                                                                                              | Description                                              | Link |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ---- |
+| Lilygo T5 2.13 Inch E-ink (With on board chip. Micro USB Version) (I used the GDEM0213B74 CH9102) | Main microcontroller                                     | [Aliexpress](https://www.aliexpress.com/item/32869729970.html "Lilygo T5 2.13 Inch E-ink GDEM0213B74 CH9102") |
+| JST 1.25mm 2pin 603450 3.7V 1200mAh Li-Polymer Li-ion Battery                                     | Battery (Optionnal)                                      | [Aliexpress](https://www.aliexpress.com/item/1005008650516897.html "JST 1.25mm 2pin 603450") |
+| M3 6mm, Screw Allen flat head screw, x2 (Pack of 50pcs)                                           | Screw with flat head to stay flush with the case         | [Aliexpress](https://www.aliexpress.com/item/1005008650516897.html "M3 50pcs, 6mm") |
+| M6 Brass Heat Insert x2                                                                           | Insert to screw the back plate (Soldering iron required) | [Aliexpress](https://www.aliexpress.com/item/1005008650516897.html "Length 4mm 50pcs, M6(OD 8mm)") |
 
 3D Printed Case : https://makerworld.com/en/models/1427537-lilygo-t5-2-13-3d-printed-case#profileId-1483837
 
