@@ -65,7 +65,7 @@ There are different versions of the Torn Dashboard, each designed for different 
 ⚠️ **Warning:**
  **I got the display few years ago. Because its kinda old, it may be a other chip inside (Other than ILI9341). You may encounter some issue. If its the case contact me or make a Issues in Github and let me know. I will try to make a version for your display if possible.**
 
-3D Printed Case : In Progess
+3D Printed Case : Check In the file list.
 
 
 ## Wiring
@@ -128,7 +128,7 @@ For a larger screen, the **4-inch TFT version** offers more space for displaying
 | Jumper wires (Dupont wire)       | For easier testing (Optionnal)            | [Aliexpress](https://www.aliexpress.com/item/1005003219096948.html "3 x 40pin Ribbon Kit 10cm") |
 | Black Rubber Strip 2mm x 10mm    | To stop the case sliding (Optionnal)     | [Aliexpress](https://www.aliexpress.com/item/1005003718625323.html "Black Rubber Strip 2mm x 10mm") |
 
-3D Printed Case : In Progess
+3D Printed Case : Check In the file list.
 
 
 ## Wiring 
@@ -186,7 +186,9 @@ The **E-Ink version** is designed for a low-power, always-on display where you d
 | M3 6mm, Screw Allen flat head screw, x2 (Pack of 50pcs)                                           | Screw with flat head to stay flush with the case         | [Aliexpress](https://www.aliexpress.com/item/1005008650516897.html "M3 50pcs, 6mm") |
 | M6 Brass Heat Insert x2                                                                           | Insert to screw the back plate (Soldering iron required) | [Aliexpress](https://www.aliexpress.com/item/1005008650516897.html "Length 4mm 50pcs, M6(OD 8mm)") |
 
-3D Printed Case : https://makerworld.com/en/models/1427537-lilygo-t5-2-13-3d-printed-case#profileId-1483837
+3D Printed Case : [Makerworld](https://makerworld.com/en/models/1427537-lilygo-t5-2-13-3d-printed-case#profileId-1483837 "Lilygo T5 2.13\" 3d printed case") 
+
+Or check In the file list.
 
 ---
 
@@ -202,7 +204,7 @@ Take a look to the Operator note at the bottom.
   3. Follow the step and wait for the success message.
      
 2. Once the flashing done with a yellow message on screen. Send the config info to the board.
-  1. Enter your Wifi and Torn information above (SSID, Password, Torn API Key)
+  1. Enter your Wifi and Torn information above (SSID, Password, Torn API Key). Or use Advanced Setup for more options (Optionnal).
   2. Press Connect ESP32 and pick the right COM port (USB).
   3. Once properly connected. Press Send Config button
   4. You should see a green message on the device screen.
