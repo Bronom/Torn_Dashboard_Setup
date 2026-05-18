@@ -167,7 +167,8 @@ export function createUI() {
         pass: entry.pass
       })),
       api: parsed.api.trim(),
-      hideBattery: !!parsed.hideBattery
+      hideBattery: !!parsed.hideBattery,
+      showBatteryPercent: !!parsed.showBatteryPercent
     };
   }
 
