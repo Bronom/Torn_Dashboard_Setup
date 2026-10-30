@@ -533,6 +533,14 @@ button:disabled {
   color: var(--text);
 }
 
+#log {
+  overflow-x: auto;
+  overflow-y: auto;
+  word-break: break-all;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+
 .log {
   background: #060a0f;
   border: 1px solid var(--border);
